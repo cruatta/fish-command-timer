@@ -145,6 +145,13 @@ function fish_command_timer_compute
   end
 end
 
+function fish_command_timer_preexec -e fish_preexec
+  if not fish_command_timer_compute
+    return
+  end
+  set -g command_start_time (date '+%s')
+end
+
 # The fish_postexec event is fired after executing a command line.
 function fish_command_timer_postexec -e fish_postexec
   if not fish_command_timer_compute
@@ -194,7 +201,7 @@ function fish_command_timer_postexec -e fish_postexec
     return
   end
 
-  set -l now_str (fish_command_timer_print_time $command_end_time)
+  set -l now_str (fish_command_timer_print_time $command_start_time)
   set -l output_str
   if [ -n "$now_str" ]
     set output_str "[ $time_str | $now_str ]"
