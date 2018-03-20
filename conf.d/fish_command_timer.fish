@@ -204,7 +204,7 @@ function fish_command_timer_postexec -e fish_postexec
   set -l start_str (fish_command_timer_print_time $command_start_time)
   set -l output_str
   if [ -n "$start_str" ]
-    set output_str "[ $time_str | $start_str ]"
+    set output_str "[ $start_str | $time_str ]"
   else
     set output_str "[ $time_str ]"
   end
